@@ -19,14 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.PushService;
 
 import java.util.List;
 
@@ -49,17 +45,11 @@ public class MainActivity extends ActionBarActivity
     String[] mid;
     protected List<ParseUser> mUsers;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        Parse.initialize(this, "YGMLd2APV7tCt4YjAnwQts7nKIqL1JKYu4Q49Bbv", "WJAAkd6AwcKxS6HDPUojkgDu6LPvO5GL4C9Z5Ni2");
-        PushService.setDefaultPushCallback(this, MainActivity.class);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -73,23 +63,20 @@ public class MainActivity extends ActionBarActivity
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ParsePush.subscribeInBackground(mid[position]);
                 Intent intent = new Intent(MainActivity.this,ChatActivity.class);
                 intent.putExtra("ruid",mid[position]);
                 startActivity(intent);
             }
         });
 
-        if(ParseUser.getCurrentUser() != null) {
-
-
-        }else{
+        if(ParseUser.getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            finish();
         }
     }
-    //project id =
 
     @Override
     protected void onResume() {
@@ -122,13 +109,9 @@ public class MainActivity extends ActionBarActivity
                             android.R.layout.simple_list_item_1,username);
                     //userList.setListAdapter(adapter);
                     userList.setAdapter(adapter);
-
-
                 }
                 else{
-
                     Log.e("MainActivity", e.getMessage());
-
                 }
 
             }
@@ -192,8 +175,8 @@ public class MainActivity extends ActionBarActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
             startActivity(intent);
+            finish();
             return true;
         }
 
