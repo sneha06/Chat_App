@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Chat_App</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_login">Login</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_sign_up">SignUp</string>
+    <string name="password_hint">Password</string>
+    <string name="username_hint">User Name</string>
+    <string name="title_activity_chat">Chats</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
